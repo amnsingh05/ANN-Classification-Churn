@@ -20,7 +20,7 @@ with open('scaler.pkl', 'rb') as file:
 
 
 ## streamlit app
-st.title('Customer Churn Prediction')
+st.title('Estimated Salary PRediction')
 
 # User input
 geography = st.selectbox('Geography', onehot_encoder_geo.categories_[0])
@@ -28,6 +28,7 @@ gender = st.selectbox('Gender', label_encoder_gender.classes_)
 age = st.slider('Age', 18, 92)
 balance = st.number_input('Balance')
 credit_score = st.number_input('Credit Score')
+exited = st.selectbox('Exited', [0, 1])
 estimated_salary = st.number_input('Estimated Salary')
 tenure = st.slider('Tenure', 0, 10)
 num_of_products = st.slider('Number of Products', 1, 4)
@@ -44,7 +45,7 @@ input_data = pd.DataFrame({
     'NumOfProducts': [num_of_products],
     'HasCrCard': [has_cr_card],
     'IsActiveMember': [is_active_member],
-    'EstimatedSalary': [estimated_salary]
+    'Exited': [exited]
 })
 
 # One-hot encode 'Geography'
@@ -58,13 +59,10 @@ input_data = pd.concat([input_data.reset_index(drop=True), geo_encoded_df], axis
 input_data_scaled = scaler.transform(input_data)
 
 
-# Predict churn
+# Predict estimated salary
 prediction = model.predict(input_data_scaled)
-prediction_proba = prediction[0][0]
+prediction_salary = prediction[0][0]
 
-st.write(f'Churn Probability: {prediction_proba:.2f}')
+st.write(f'Churn Probability: {prediction_salary:.2f}')
 
-if prediction_proba > 0.5:
-    st.write('The customer is likely to churn.')
-else:
-    st.write('The customer is not likely to churn.')
+st.write(f'Predicted Estimated Salary: ${prediction_salary:.2f}')

@@ -127,7 +127,7 @@ protobuf==4.25.3
 
 🌐 Live Demo
 
-👉 https://ann-classification-churn-bxf9tjypx5gptkngugaa3y.streamlit.app/
+👉 https://ann-classification-churn-4vr76pfj9xntbmbd5m62om.streamlit.app/
 
 ---
 
